@@ -19,16 +19,22 @@ Haz un commit: "Resuelve ejercicio 09".
 
 class Producto:
     def __init__(self, nombre, precio, stock):
-        # TODO: inicializa los atributos de instancia.
-        pass
+        # Inicializamos los atributos de instancia usando 'self'
+        self.nombre = nombre
+        self.precio = precio
+        self.stock = stock
 
     def valor_inventario(self):
-        # TODO: devuelve el valor del inventario.
-        pass
+        # Multiplicamos el precio por el stock actual de este producto en específico
+        return self.precio * self.stock
 
     def vender(self, cantidad):
-        # TODO: aplica las reglas de venta y devuelve un booleano.
-        pass
+        # Verificamos que la cantidad sea positiva y que tengamos suficiente stock
+        if cantidad > 0 and cantidad <= self.stock:
+            self.stock -= cantidad  # Restamos la cantidad del stock actual
+            return True
+        else:
+            return False
 
 
 cafe = Producto("cafe", 10, 5)
@@ -43,4 +49,12 @@ print(cafe.valor_inventario())  # Esperado: 30
 print(te.valor_inventario())    # Esperado: 24 (no debe cambiar)
 print(cafe.vender(3))          # Esperado: True
 print(cafe.valor_inventario())  # Esperado: 0
+
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+torta = Producto("torta", 25, 2)
+print("--- Prueba Torta ---")
+print(torta.valor_inventario()) # Esperado: 50
+print(torta.vender(1))          # Esperado: True
+print(torta.valor_inventario()) # Esperado: 25
+print(torta.vender(2))          # Esperado: False (solo queda 1 en stock)
+print(torta.stock)              # Esperado: 1
