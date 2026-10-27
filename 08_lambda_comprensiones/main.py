@@ -22,13 +22,35 @@ Al terminar: git commit -m "Resuelve ejercicio 08".
 """
 
 def generar_simulaciones(precios, porcentajes):
-    # TODO: implementa lo solicitado y devuelve el resultado.
-    pass
+    # Definimos la función lambda con dos parámetros que calcula el descuento
+    calcular_descuento = lambda precio, porcentaje: round(precio * (1 - porcentaje / 100), 2)
+    
+    # Comprensión anidada: 
+    # Por cada porcentaje en 'porcentajes' (filas)
+    # se genera una lista interna recorriendo cada precio en 'precios' (columnas)
+    return [[calcular_descuento(p, pct) for p in precios] for pct in porcentajes]
 
 
 # Ejemplo de uso: inicialmente imprime None porque falta la implementación.
 precios = [10, 20, 40]
 porcentajes = [0, 10, 25]
-print(generar_simulaciones(precios, porcentajes))
+print("Simulación 1:", generar_simulaciones(precios, porcentajes))
+# Resultado esperado: [[10.0, 20.0, 40.0], [9.0, 18.0, 36.0], [7.5, 15.0, 30.0]]
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+precios_2 = [100, 50]
+porcentajes_2 = [50, 100]
+print("Simulación 2:", generar_simulaciones(precios_2, porcentajes_2))
+# Resultado esperado: [[50.0, 25.0], [0.0, 0.0]]
+
+# Ejemplo 3 (precios vacíos)
+precios_vacios = []
+porcentajes_3 = [10, 20]
+print("Precios vacíos:", generar_simulaciones(precios_vacios, porcentajes_3))
+# Resultado esperado: [[], []]
+
+# Ejemplo 4 (porcentajes vacíos)
+precios_4 = [100, 200]
+porcentajes_vacios = []
+print("Porcentajes vacíos:", generar_simulaciones(precios_4, porcentajes_vacios))
+# Resultado esperado: []
