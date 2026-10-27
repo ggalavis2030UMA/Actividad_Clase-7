@@ -17,15 +17,30 @@ Añade al menos otro ejemplo usando print y escribe en un comentario qué espera
 Al terminar: git commit -m "Resuelve ejercicio 07".
 """
 
-# TODO: importa reduce desde functools.
+# Importamos reduce desde la librería functools de Python
+from functools import reduce
 
 def total_ventas(pedidos):
-    # TODO: implementa lo solicitado y devuelve el resultado.
-    pass
+    # map: calcula el subtotal (precio * cantidad) de cada tupla
+    # reduce: va sumando cada subtotal calculado, empezando desde 0
+    return reduce(
+        lambda acumulador, subtotal: acumulador + subtotal, 
+        map(lambda pedido: pedido[1] * pedido[2], pedidos), 
+        0
+    )
 
 
 # Ejemplo de uso: inicialmente imprime None porque falta la implementación.
 pedidos = [("cafe", 10, 2), ("te", 8, 3), ("torta", 25, 1)]
-print(total_ventas(pedidos))
+print("Total ejemplo 1:", total_ventas(pedidos))
+# Resultado esperado: 69 (20 + 24 + 25)
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+pedidos_2 = [("empanada", 2, 5), ("agua", 1, 3)]
+print("Total ejemplo 2:", total_ventas(pedidos_2))
+# Resultado esperado: 13 (10 + 3)
+
+# Ejemplo 3 (lista vacía)
+pedidos_vacios = []
+print("Total vacío:", total_ventas(pedidos_vacios))
+# Resultado esperado: 0
