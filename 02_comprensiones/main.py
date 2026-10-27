@@ -24,31 +24,35 @@ Al terminar: git commit -m "Resuelve ejercicio 02".
 
 def preparar_catalogo(productos):
     return {
-        "disponibles": [
-            producto["nombre"]
-            for producto in productos
-            if producto["precio"] <= 20
-        ],
-        "precios": {
-            producto["nombre"]: producto["precio"]
-            for producto in productos
-        },
-        "categorias": {
-            producto["categoria"]
-            for producto in productos
-        },
+        "disponibles": [p["nombre"] for p in productos if p["precio"] <= 20],
+        "precios": {p["nombre"]: p["precio"] for p in productos},
+        "categorias": {p["categoria"] for p in productos}
     }
 
 
-# Imprime los productos del enunciado, con las estructuras esperadas.
+# Ejemplo de uso: inicialmente imprime None porque falta la implementación.
 productos = [
     {"nombre": "cafe", "precio": 10, "categoria": "bebida"},
     {"nombre": "torta", "precio": 25, "categoria": "postre"},
     {"nombre": "te", "precio": 8, "categoria": "bebida"},
 ]
 print(preparar_catalogo(productos))
+# Resultado esperado:
+# {'disponibles': ['cafe', 'te'], 'precios': {'cafe': 10, 'torta': 25, 'te': 8}, 'categorias': {'bebida', 'postre'}}
 
-# Se espera: {"disponibles": [], "precios": {"pan": 22}, "categorias": {"alimento"}}.
-print(preparar_catalogo([
-    {"nombre": "pan", "precio": 22, "categoria": "alimento"},
-]))
+# TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+productos_2 = [
+    {"nombre": "libro", "precio": 15, "categoria": "papeleria"},
+    {"nombre": "laptop", "precio": 1200, "categoria": "tecnologia"},
+    {"nombre": "lapiz", "precio": 2, "categoria": "papeleria"},
+    {"nombre": "mouse", "precio": 18, "categoria": "tecnologia"}
+]
+print(preparar_catalogo(productos_2))
+# Resultado esperado:
+# {'disponibles': ['libro', 'lapiz', 'mouse'], 'precios': {'libro': 15, 'laptop': 1200, 'lapiz': 2, 'mouse': 18}, 'categorias': {'papeleria', 'tecnologia'}}
+
+# Ejemplo 3 (lista vacía)
+productos_vacios = []
+print(preparar_catalogo(productos_vacios))
+# Resultado esperado:
+# {'disponibles': [], 'precios': {}, 'categorias': set()}
