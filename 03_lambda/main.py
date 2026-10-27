@@ -18,12 +18,30 @@ Al terminar: git commit -m "Resuelve ejercicio 03".
 """
 
 def calcular_importes(precios):
-    # TODO: implementa lo solicitado y devuelve el resultado.
-    pass
+    # Definimos la función lambda para sumar el 10% y redondear a 2 decimales
+    recargo = lambda precio: round(precio * 1.10, 2)
+    
+    # Creamos una nueva lista para no modificar la original
+    precios_actualizados = []
+    
+    # Usamos un ciclo for para aplicar la lambda a cada precio
+    for p in precios:
+        precios_actualizados.append(recargo(p))
+        
+    return precios_actualizados
 
 
 # Ejemplo de uso: inicialmente imprime None porque falta la implementación.
 precios = [10, 20, 35]
 print(calcular_importes(precios))
+# Resultado esperado: [11.0, 22.0, 38.5]
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+precios_2 = [15.50, 99.99, 0]
+print(calcular_importes(precios_2))
+# Resultado esperado: [17.05, 109.99, 0.0]
+
+# Ejemplo 3 (lista vacía)
+precios_vacios = []
+print(calcular_importes(precios_vacios))
+# Resultado esperado: []
