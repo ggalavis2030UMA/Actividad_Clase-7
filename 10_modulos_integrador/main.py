@@ -24,11 +24,20 @@ Añade otro ejemplo con print y su resultado esperado en un comentario.
 Haz un commit: "Resuelve ejercicio 10".
 """
 
-# TODO: importa PRODUCTOS desde datos.
-# TODO: importa generar_reporte desde operaciones.
+# Importamos la data desde datos.py
+from datos import PRODUCTOS
+# Importamos nuestra función desde operaciones.py
+from operaciones import generar_reporte
 
-# TODO: una vez completadas las importaciones, descomenta estas líneas.
-# print(generar_reporte(PRODUCTOS))
-# print(generar_reporte([]))
+# Descomentamos las líneas originales solicitadas
+print(generar_reporte(PRODUCTOS))
+print(generar_reporte([]))
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+productos_extra = [
+    {"nombre": "agua", "precio": 2, "stock": 10, "categoria": "bebida"},
+    {"nombre": "galleta", "precio": 3, "stock": 0, "categoria": "postre"}
+]
+print(generar_reporte(productos_extra))
+# Resultado esperado: 
+# {'disponibles': ['agua'], 'valor_total': 20, 'hay_agotados': True, 'categorias': {'bebida', 'postre'}, 'precios_con_recargo': [('agua', 2.2)]}

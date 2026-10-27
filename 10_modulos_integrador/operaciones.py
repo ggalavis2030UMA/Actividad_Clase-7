@@ -18,9 +18,43 @@ No modifiques productos ni imprimas dentro de la función.
 Para [] devuelve listas y set vacíos, valor_total=0 y hay_agotados=False.
 """
 
-# TODO: importa reduce desde functools.
-
+# Importamos reduce desde functools
+from functools import reduce
 
 def generar_reporte(productos):
-    # TODO: construye y devuelve el reporte.
-    pass
+    # disponibles: filter para stock > 0, y map para extraer el "nombre"
+    disponibles = list(
+        map(lambda p: p["nombre"], 
+            filter(lambda p: p["stock"] > 0, productos))
+    )
+    
+    # valor_total: map para calcular (precio * stock) y reduce para sumarlo todo
+    valor_total = reduce(
+        lambda acumulador, subtotal: acumulador + subtotal,
+        map(lambda p: p["precio"] * p["stock"], productos),
+        0
+    )
+    
+    # hay_agotados: map para detectar stocks en 0 y any para ver si hay al menos uno True
+    hay_agotados = any(
+        map(lambda p: p["stock"] == 0, productos)
+    )
+    
+    # categorias: comprensión de set (elimina duplicados automáticamente)
+    categorias = {p["categoria"] for p in productos}
+    
+    # precios_con_recargo: lambda para el recargo y comprensión de lista con condicional
+    recargo = lambda precio: round(precio * 1.10, 2)
+    precios_con_recargo = [
+        (p["nombre"], recargo(p["precio"])) 
+        for p in productos if p["stock"] > 0
+    ]
+    
+    # Retornamos el diccionario empaquetando todo
+    return {
+        "disponibles": disponibles,
+        "valor_total": valor_total,
+        "hay_agotados": hay_agotados,
+        "categorias": categorias,
+        "precios_con_recargo": precios_con_recargo
+    }
