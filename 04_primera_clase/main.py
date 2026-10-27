@@ -24,17 +24,50 @@ Al terminar: git commit -m "Resuelve ejercicio 04".
 """
 
 def aplicar_operacion(valores, operacion):
-    # TODO: implementa lo solicitado y devuelve el resultado.
-    pass
+    # Creamos una lista nueva para no modificar la original
+    resultado = []
+    # Recorremos cada valor, le aplicamos la función y lo guardamos
+    for v in valores:
+        resultado.append(operacion(v))
+    return resultado
 
 
 def transformar(valores):
-    # TODO: crea el diccionario de funciones y aplica las operaciones.
-    pass
+    # Diccionario donde los VALORES son funciones lambda
+    funciones = {
+        "doble": lambda x: x * 2,
+        "cuadrado": lambda x: x ** 2,
+        "negativo": lambda x: -x
+    }
+    
+    # Diccionario para guardar las listas resultantes
+    resultado_final = {}
+    
+    # Recorremos el diccionario de funciones
+    for clave, funcion in funciones.items():
+        # Usamos nuestra función auxiliar pasando la lista y la lambda correspondiente
+        resultado_final[clave] = aplicar_operacion(valores, funcion)
+        
+    return resultado_final
 
 
-# Ejemplo de uso: inicialmente imprime None porque falta la implementación.
+# Ejemplo de uso: 
 valores = [1, 2, 3]
-print(transformar(valores))
+print("Transformar:", transformar(valores))
+# Resultado esperado: {'doble': [2, 4, 6], 'cuadrado': [1, 4, 9], 'negativo': [-1, -2, -3]}
+
+# Ejemplo específico pedido en el enunciado para aplicar_operacion
+print("Aplicar suma:", aplicar_operacion([2, 4], lambda x: x + 1))
+# Resultado esperado: [3, 5]
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+valores_2 = [5, 0, -2]
+print("Transformar 2:", transformar(valores_2))
+# Resultado esperado: 
+# {'doble': [10, 0, -4], 'cuadrado': [25, 0, 4], 'negativo': [-5, 0, 2]}
+
+# Ejemplo 3 (lista vacía)
+valores_vacios = []
+print("Transformar vacío:", transformar(valores_vacios))
+# Resultado esperado: 
+# {'doble': [], 'cuadrado': [], 'negativo': []}
