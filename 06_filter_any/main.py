@@ -22,8 +22,25 @@ Al terminar: git commit -m "Resuelve ejercicio 06".
 """
 
 def revisar_stock(productos):
-    # TODO: implementa lo solicitado y devuelve el resultado.
-    pass
+    # filter + lambda: selecciona solo los diccionarios con stock < 5
+    # map + lambda: extrae el "nombre" de esos diccionarios filtrados
+    # list(): convierte el resultado final en una lista visible
+    reponer = list(
+        map(lambda p: p["nombre"], 
+            filter(lambda p: p["stock"] < 5, productos)
+        )
+    )
+    
+    # map + lambda: convierte cada diccionario en True (si stock == 0) o False (si stock != 0)
+    # any(): devuelve True si al menos hay un True en todo el resultado anterior
+    hay_agotados = any(
+        map(lambda p: p["stock"] == 0, productos)
+    )
+    
+    return {
+        "reponer": reponer,
+        "hay_agotados": hay_agotados
+    }
 
 
 # Ejemplo de uso: inicialmente imprime None porque falta la implementación.
@@ -33,5 +50,18 @@ productos = [
     {"nombre": "torta", "stock": 3},
 ]
 print(revisar_stock(productos))
+# Resultado esperado: {'reponer': ['te', 'torta'], 'hay_agotados': True}
 
 # TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+productos_2 = [
+    {"nombre": "agua", "stock": 5},
+    {"nombre": "jugo", "stock": 10},
+    {"nombre": "refresco", "stock": 50}
+]
+print(revisar_stock(productos_2))
+# Resultado esperado: {'reponer': [], 'hay_agotados': False}
+
+# Ejemplo 3 (lista vacía)
+productos_vacios = []
+print(revisar_stock(productos_vacios))
+# Resultado esperado: {'reponer': [], 'hay_agotados': False}
